@@ -50,7 +50,7 @@
 
      @Override
      public String toString() {
-         return String.format("Привет! Меня зовут %s, мне %d %s, я вешу - %s, мой цвет - %s", name, age, , weight, color.getColorName());
+         return String.format("Привет! Меня зовут %s, мне %d %s, я вешу - %s, мой цвет - %s", name, age, getYearPadezh(), weight, color.getColorName());
      }
 
      private String getYearPadezh() {
@@ -73,20 +73,5 @@
      }
  }
 
-//     private String ageToString (){
-//         int first = age;
-//         int second = age % 100;
-//         int f = age % 10;
-//         if (second == 11)
-//             return(age + " лет");
-//         else if (f == 0 || f == 5 || f == 6 || f == 7 || f == 8 || f == 9)
-//             return(age + " лет");
-//         else if (f == 1)
-//             return(age + " год");
-//         else if (f == 2 || f == 3 || f == 4)
-//             return(age +" года");
-//
-//         return "";
-//     }
 
 
