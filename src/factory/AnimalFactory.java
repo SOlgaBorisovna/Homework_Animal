@@ -22,7 +22,7 @@ public class AnimalFactory {
     }
 
     public Animal create(AnimalTypeData animalTypeData) {
-        switch (AnimalTypeData) {
+        switch (animalTypeData) {
             case CAT: {
                 return new Cat(name, age, weight, colorData);
             }
