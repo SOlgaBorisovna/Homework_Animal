@@ -1,5 +1,7 @@
 package data;
 
 public enum CommandsData {
-    ADD, LIST, EXIT
+    ADD,
+    LIST,
+    EXIT
 }

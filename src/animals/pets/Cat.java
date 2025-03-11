@@ -9,4 +9,9 @@ public class Cat extends Animal {
 
         super(name, age, weight, color);
     }
+
+    @Override
+    public void say() {
+        System.out.println("Мяу");
+    }
 }

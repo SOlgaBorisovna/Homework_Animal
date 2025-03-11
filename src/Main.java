@@ -1,72 +1,4 @@
-/*
 import animals.Animal;
-import data.CommandsData;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-public class Main {
-
-    public static void main(String[] args) {
-        List<Animal> animals = new ArrayList<>();
-
-        Scanner scanner = new Scanner(System.in);
-
-        List<String> namesCommand = new ArrayList<>();
-        for(CommandsData commandsData: CommandsData.values()) {
-            namesCommand.add(commandsData.name());
-        }
-
-        while(true) {
-
-            System.out.printf(String.format("Введите команду: %S", String.join("/", namesCommand) ));
-
-            String userCommand = scanner.next().trim();
-            String userCommandUpperCase = userCommand.toUpperCase();
-
-            boolean isCommandExist = false;
-            for(CommandsData commandsData: CommandsData.values()) {
-                if(userCommandUpperCase.equals(commandsData.name())) {
-                    isCommandExist = true;
-                    break;
-                }
-            }
-
-            if(!isCommandExist) {
-                System.out.printf("Команда %S не поддерживается\n", userCommand);
-                continue;
-            }
-
-            switch (CommandsData.valueOf(userCommandUpperCase)) {
-                case ADD: {
-                    break;
-                }
-                case LIST: {
-                    for(Animal animal: animals) {
-                        System.out.println(animal.toString());
-                        break;
-                    }
-                }
-                case EXIT: {
-                    System.exit(0);
-                }
-            }
-        }
-
-    }
-
-}
- */
-
-
-
-
-
-import animals.Animal;
-import animals.birds.Duck;
-import animals.pets.Cat;
-import animals.pets.Dog;
 import data.AnimalTypeData;
 import data.ColorData;
 import data.CommandsData;
@@ -82,12 +14,6 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList<Animal> animals = new ArrayList<Animal>();
-//        animals.add(new Cat("Murka", 3, 10, "Grey"));
-//        animals.add(new Cat("Vaska", 1, 12, "Orange"));
-//        animals.add(new Cat("Sharik", 7, 11, "Black"));
-//        animals.add(new Cat("Tuzik", 2, 17, "Brown"));
-//        animals.add(new Cat("Ga", 7, 2, "White"));
-//        animals.add(new Cat("Gugu", 3, 4, "Grey"));
 
         //CommandsData command;
         Scanner scanCommand = new Scanner(System.in);
@@ -98,9 +24,11 @@ public class Main {
         }
 
         while (true) {
+
             CommandsData command = null;
             String userCommand = null;
             String userCommandUpperCase = null;
+
             do {
                 System.out.printf(String.format("Введите команду: %S \n", String.join("/", namesCommand)));
                 try {
@@ -108,7 +36,7 @@ public class Main {
                     userCommandUpperCase = userCommand.toUpperCase();
                     command = CommandsData.valueOf(userCommandUpperCase);
                 } catch (IllegalArgumentException e) {
-                    System.out.printf("Команда %s не поддерживается!\n", userCommand);
+                    System.out.printf("Команда %s не поддерживается программой!\n", userCommand);
                 }
             }while (command == null);
 
@@ -127,7 +55,7 @@ public class Main {
     }
 
     public static void addAnimal(ArrayList<Animal> animals) {
-        //String animal;
+
         Scanner scanAnimal = new Scanner(System.in);
 
         List<String> typesAnimal = new ArrayList<>();
@@ -143,31 +71,54 @@ public class Main {
                 userAnimal = scanAnimal.nextLine().trim();
                 typeAnimal = AnimalTypeData.valueOf(userAnimal);
             } catch (IllegalArgumentException e) {
-                System.out.printf("Тип животного %s не поддерживается!\n", userAnimal);
-                //typeAnimal = null;
+                System.out.printf("Тип животного %s не поддерживается программой!\n", userAnimal);
             }
         } while (typeAnimal == null);
 
         System.out.println("Введите имя:");
-        String nameCat = scanAnimal.nextLine();
+        String nameAnimal = scanAnimal.nextLine();
 
-        NumberTools validator = new NumberTools();
-        String ageCat = null;
+        NumberTools validatorAge = new NumberTools();
+        String ageAnimal = null;
         do {
             System.out.println("Введите возраст:");
-            ageCat = scanAnimal.nextLine();
-            if (!validator.isNumber(ageCat))
-                System.out.printf("Вы не ввели число!\n");
-        } while(!validator.isNumber(ageCat));
+            ageAnimal = scanAnimal.nextLine();
+            if (!validatorAge.isNumber(ageAnimal))
+                System.out.println("Недопустимое значение для возраста!\n");
+        } while(!validatorAge.isNumber(ageAnimal));
 
-        System.out.println("Введите вес:");
-        int weightCat = scanAnimal.nextInt();
-        String weightCatString = scanAnimal.nextLine();
+        NumberTools validatorWeight = new NumberTools();
+        String weightAnimal = null;
+        do {
+            System.out.println("Введите вес:");
+            weightAnimal = scanAnimal.nextLine();
+            if (!validatorWeight.isNumber(weightAnimal))
+                System.out.println("Недопустимое значение для веса!\n");
+        } while(!validatorWeight.isNumber(weightAnimal));
 
-        System.out.println("Введите цвет:");
-        String colorCat = scanAnimal.nextLine();
+        Scanner scanColor = new Scanner(System.in);
 
-        AnimalFactory animalFactory = new AnimalFactory(nameCat, Integer.parseInt(ageCat), weightCat, ColorData.RED);
+        List<String> namesColor = new ArrayList<>();
+        for (ColorData color : ColorData.values()) {
+            namesColor.add(color.name());
+        }
+
+        ColorData color = null;
+        String userColor = null;
+        String userColorUpperCase = null;
+
+        do {
+            System.out.printf(String.format("Введите цвет: %S \n", String.join("/", namesColor)));
+            try {
+                userColor = scanColor.nextLine().trim();
+                userColorUpperCase = userColor.toUpperCase();
+                color = ColorData.valueOf(userColorUpperCase);
+            } catch (IllegalArgumentException e) {
+                System.out.printf("Цвет %s не поддерживается!\n", userColor);
+            }
+        }while (color == null);
+
+        AnimalFactory animalFactory = new AnimalFactory(nameAnimal, Integer.parseInt(ageAnimal), Integer.parseInt(weightAnimal), color);
         Animal animal = animalFactory.create(typeAnimal);
         animals.add(animal);
         animal.say();
