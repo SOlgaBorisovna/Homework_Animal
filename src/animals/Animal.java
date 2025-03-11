@@ -50,7 +50,7 @@
 
      @Override
      public String toString() {
-         return String.format("Привет! Меня зовут %s, мне %d %s, я вешу - %s, мой цвет - %s", name, age, getYearPadezh(), weight, color.getColorName());
+         return String.format("Привет! Меня зовут %s, мне %d %s, я вешу - %s, мой цвет - %s", name, age, getYearPadezh(), weight, color.name());
      }
 
      private String getYearPadezh() {
