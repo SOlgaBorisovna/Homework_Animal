@@ -15,7 +15,6 @@ public class Main {
 
         ArrayList<Animal> animals = new ArrayList<Animal>();
 
-        //CommandsData command;
         Scanner scanCommand = new Scanner(System.in);
 
         List<String> namesCommand = new ArrayList<>();
@@ -38,18 +37,18 @@ public class Main {
                 } catch (IllegalArgumentException e) {
                     System.out.printf("Команда %s не поддерживается программой!\n", userCommand);
                 }
-            }while (command == null);
+            } while (command == null);
 
             switch (command) {
-                case ADD:
-                    addAnimal(animals);
-                    break;
-                case LIST:
-                    listAnimals(animals);
-                    break;
-                case EXIT:
-                    System.exit(0);
-                    break;
+            case ADD:
+                addAnimal(animals);
+                break;
+            case LIST:
+                listAnimals(animals);
+                break;
+            case EXIT:
+                System.exit(0);
+                break;
             }
         }
     }
@@ -116,7 +115,7 @@ public class Main {
             } catch (IllegalArgumentException e) {
                 System.out.printf("Цвет %s не поддерживается!\n", userColor);
             }
-        }while (color == null);
+        } while (color == null);
 
         AnimalFactory animalFactory = new AnimalFactory(nameAnimal, Integer.parseInt(ageAnimal), Integer.parseInt(weightAnimal), color);
         Animal animal = animalFactory.create(typeAnimal);
@@ -124,7 +123,7 @@ public class Main {
         animal.say();
     }
 
-    public static void listAnimals (ArrayList < Animal > animals) {
+    public static void listAnimals(ArrayList < Animal > animals) {
         for (int i = 0; i < animals.size(); i++) {
             System.out.println(animals.get(i));
         }

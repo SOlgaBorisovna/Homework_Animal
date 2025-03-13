@@ -23,15 +23,15 @@ public class AnimalFactory {
 
     public Animal create(AnimalTypeData animalTypeData) {
         switch (animalTypeData) {
-            case CAT: {
-                return new Cat(name, age, weight, colorData);
-            }
-            case DOG: {
-                return new Dog(name, age, weight, colorData);
-            }
-            case DUCK: {
-                return new Duck(name, age, weight, colorData);
-            }
+        case CAT: {
+            return new Cat(name, age, weight, colorData);
+        }
+        case DOG: {
+            return new Dog(name, age, weight, colorData);
+        }
+        case DUCK: {
+            return new Duck(name, age, weight, colorData);
+        }
         }
 
         return null;
