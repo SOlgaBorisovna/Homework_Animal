@@ -11,11 +11,11 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static List<Animal> animals = new ArrayList<>();
+
+    private static Scanner scan = new Scanner(System.in);
+
     public static void main(String[] args) {
-
-        ArrayList<Animal> animals = new ArrayList<Animal>();
-
-        Scanner scanCommand = new Scanner(System.in);
 
         List<String> namesCommand = new ArrayList<>();
         for (CommandsData command : CommandsData.values()) {
@@ -31,7 +31,7 @@ public class Main {
             do {
                 System.out.printf(String.format("Введите команду: %S \n", String.join("/", namesCommand)));
                 try {
-                    userCommand = scanCommand.nextLine().trim();
+                    userCommand = scan.nextLine().trim();
                     userCommandUpperCase = userCommand.toUpperCase();
                     command = CommandsData.valueOf(userCommandUpperCase);
                 } catch (IllegalArgumentException e) {
@@ -41,21 +41,20 @@ public class Main {
 
             switch (command) {
             case ADD:
-                addAnimal(animals);
+                addAnimal();
                 break;
             case LIST:
-                listAnimals(animals);
+                listAnimals();
                 break;
             case EXIT:
+                scan.close();
                 System.exit(0);
                 break;
             }
         }
     }
 
-    public static void addAnimal(ArrayList<Animal> animals) {
-
-        Scanner scanAnimal = new Scanner(System.in);
+    public static void addAnimal() {
 
         List<String> typesAnimal = new ArrayList<>();
         for (AnimalTypeData animal : AnimalTypeData.values()) {
@@ -64,24 +63,26 @@ public class Main {
 
         AnimalTypeData typeAnimal = null;
         String userAnimal = null;
+        String userAnimalUpperCase = null;
         do {
             System.out.printf(String.format("Введите животное: %s \n", String.join("/", typesAnimal)));
             try {
-                userAnimal = scanAnimal.nextLine().trim();
-                typeAnimal = AnimalTypeData.valueOf(userAnimal);
+                userAnimal = scan.nextLine().trim();
+                userAnimalUpperCase = userAnimal.toUpperCase();
+                typeAnimal = AnimalTypeData.valueOf(userAnimalUpperCase);
             } catch (IllegalArgumentException e) {
                 System.out.printf("Тип животного %s не поддерживается программой!\n", userAnimal);
             }
         } while (typeAnimal == null);
 
         System.out.println("Введите имя:");
-        String nameAnimal = scanAnimal.nextLine();
+        String nameAnimal = scan.nextLine();
 
         NumberTools validatorAge = new NumberTools();
         String ageAnimal = null;
         do {
             System.out.println("Введите возраст:");
-            ageAnimal = scanAnimal.nextLine();
+            ageAnimal = scan.nextLine();
             if (!validatorAge.isNumber(ageAnimal))
                 System.out.println("Недопустимое значение для возраста!\n");
         } while(!validatorAge.isNumber(ageAnimal));
@@ -90,12 +91,10 @@ public class Main {
         String weightAnimal = null;
         do {
             System.out.println("Введите вес:");
-            weightAnimal = scanAnimal.nextLine();
+            weightAnimal = scan.nextLine();
             if (!validatorWeight.isNumber(weightAnimal))
                 System.out.println("Недопустимое значение для веса!\n");
         } while(!validatorWeight.isNumber(weightAnimal));
-
-        Scanner scanColor = new Scanner(System.in);
 
         List<String> namesColor = new ArrayList<>();
         for (ColorData color : ColorData.values()) {
@@ -109,7 +108,7 @@ public class Main {
         do {
             System.out.printf(String.format("Введите цвет: %S \n", String.join("/", namesColor)));
             try {
-                userColor = scanColor.nextLine().trim();
+                userColor = scan.nextLine().trim();
                 userColorUpperCase = userColor.toUpperCase();
                 color = ColorData.valueOf(userColorUpperCase);
             } catch (IllegalArgumentException e) {
@@ -123,10 +122,9 @@ public class Main {
         animal.say();
     }
 
-    public static void listAnimals(ArrayList < Animal > animals) {
+    public static void listAnimals() {
         for (int i = 0; i < animals.size(); i++) {
             System.out.println(animals.get(i));
         }
     }
-
 }
