@@ -12,7 +12,11 @@ public class FilePropertyReader implements IPropertyReader {
     @Override
     public Map<String, String> getSettings() {
         Properties properties = new Properties();
-        properties.load(Files.newInputStream(Paths.get(System.getProperty("user.dir") + "/src/db.properties")));
+        try {
+            properties.load(Files.newInputStream(Paths.get(System.getProperty("user.dir") + "/resources/db.properties")));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         Map<String, String> settings = new HashMap<>();
 

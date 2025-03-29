@@ -1,4 +1,5 @@
 import animals.Animal;
+import dao.AnimalTable;
 import data.AnimalTypeData;
 import data.ColorData;
 import data.CommandsData;
@@ -123,8 +124,10 @@ public class Main {
     }
 
     public static void listAnimals() {
-        for (int i = 0; i < animals.size(); i++) {
-            System.out.println(animals.get(i));
+        AnimalTable table = new AnimalTable();
+        List<Animal> localAnimals = table.findAll();
+        for (int i = 0; i < localAnimals.size(); i++) {
+            System.out.println(localAnimals.get(i));
         }
     }
 }

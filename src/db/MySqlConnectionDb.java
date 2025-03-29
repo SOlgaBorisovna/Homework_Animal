@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Map;
 
-public class MySqlConnectionDb implements IDataBase {
+public class MySqlConnectionDb implements ISqlDataBase {
 
     private Connection connection = null;
     private Statement statement = null;
@@ -14,6 +14,14 @@ public class MySqlConnectionDb implements IDataBase {
     private String url = "jdbc:";
     private String login = System.getProperty("login");
     private String password = System.getProperty("password");
+
+    private static MySqlConnectionDb instance;
+
+    public static MySqlConnectionDb getInstance(){
+        if(instance == null)
+            instance = new MySqlConnectionDb();
+        return instance;
+    }
 
     private void openConnectToDb() throws SQLException, IOException {
         if(connection == null) {

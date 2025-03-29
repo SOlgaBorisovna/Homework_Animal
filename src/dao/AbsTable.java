@@ -1,6 +1,6 @@
 package dao;
 
-import utils.ConnectionManager;
+import db.MySqlConnectionDb;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -18,8 +18,8 @@ public class AbsTable {
     public void create() {
         String sqlRequest = String.format("CREATE TABLE IF NOT EXISTS %s (%S)", this.tableName, convertMapColumnsToString());
         try {
-            ConnectionManager.getInstance().executeQuery(sqlRequest);
-        } catch (SQLException e) {
+            MySqlConnectionDb.getInstance().requestExecute(sqlRequest);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -27,7 +27,7 @@ public class AbsTable {
     private String convertMapColumnsToString() {
         String result = "";
         for(Map.Entry<String, String> el : columns.entrySet()){
-            result += el.getKey() + "" + el.getValue() + ",";
+            result += el.getKey() + " " + el.getValue() + ",";
         }
         result = result.substring(0, result.length()-1);
         return result;
