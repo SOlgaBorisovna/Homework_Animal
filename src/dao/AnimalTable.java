@@ -49,11 +49,11 @@ public class AnimalTable extends AbsTable implements IAnimalTable{
     }
 
     @Override
-    public Animal findById(Long searchId) {
+    public List<Animal> findByType(String searchType) {
         // TODO: нужно черех фабрику!!!
-        Animal animal = null;
+        List<Animal> animals = new ArrayList<>();
         try {
-            try (ResultSet rs = MySqlConnectionDb.getInstance().requestExecuteWithReturned("SELECT * FROM " + tableName + " WHERE id=" + searchId)) {
+            try (ResultSet rs = MySqlConnectionDb.getInstance().requestExecuteWithReturned("SELECT * FROM " + tableName + " WHERE type =" + searchType)) {
                 while (rs.next()) {
                     long id = rs.getLong("id");
                     String name = rs.getString("name");
@@ -69,6 +69,16 @@ public class AnimalTable extends AbsTable implements IAnimalTable{
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return animal;
+        return animals;
+    }
+
+    @Override
+    public void addAnimal(Animal newAnimal) {
+        try {
+            MySqlConnectionDb.getInstance().requestExecute(
+                    String.format("INSERT INTO %s (color, name, weight, type, age) VALUES ('%s', '%s', %d, '%s', %d)", tableName, newAnimal.getColor().name(), newAnimal.getName(), newAnimal.getWeight(), newAnimal.getType().name(), newAnimal.getAge()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

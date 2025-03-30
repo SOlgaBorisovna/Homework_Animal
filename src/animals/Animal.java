@@ -1,5 +1,6 @@
  package animals;
 
+ import data.AnimalTypeData;
  import data.ColorData;
 
  public abstract class Animal {
@@ -8,12 +9,14 @@
      private int age;
      private int weight;
      private ColorData color;
+     private AnimalTypeData type;
 
-     public Animal(String name, int age, int weight, ColorData color) {
+     public Animal(String name, int age, int weight, ColorData color, AnimalTypeData type) {
          this.name = name;
          this.age = age;
          this.weight = weight;
          this.color = color;
+         this.type = type;
      }
 
      public String getName() {
@@ -47,6 +50,8 @@
      public void drink() {
          System.out.println("Я пью");
      }
+
+     public AnimalTypeData getType(){return type;}
 
      @Override
      public String toString() {

@@ -119,7 +119,8 @@ public class Main {
 
         AnimalFactory animalFactory = new AnimalFactory(nameAnimal, Integer.parseInt(ageAnimal), Integer.parseInt(weightAnimal), color);
         Animal animal = animalFactory.create(typeAnimal);
-        animals.add(animal);
+        AnimalTable table = new AnimalTable();
+        table.addAnimal(animal);
         animal.say();
     }
 
