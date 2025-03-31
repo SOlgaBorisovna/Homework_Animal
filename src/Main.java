@@ -47,6 +47,9 @@ public class Main {
             case LIST:
                 listAnimals();
                 break;
+            case SEARCH:
+                searchAnimals();
+                break;
             case EXIT:
                 scan.close();
                 System.exit(0);
@@ -130,5 +133,33 @@ public class Main {
         for (int i = 0; i < localAnimals.size(); i++) {
             System.out.println(localAnimals.get(i));
         }
+    }
+
+    public static void searchAnimals() {
+        List<String> typesAnimal = new ArrayList<>();
+        for (AnimalTypeData animal : AnimalTypeData.values()) {
+            typesAnimal.add(animal.name());
+        }
+
+        AnimalTypeData typeAnimal = null;
+        String userAnimal = null;
+        String userAnimalUpperCase = null;
+        do {
+            System.out.printf(String.format("Введите тип животного: %s \n", String.join("/", typesAnimal)));
+            try {
+                userAnimal = scan.nextLine().trim();
+                userAnimalUpperCase = userAnimal.toUpperCase();
+                typeAnimal = AnimalTypeData.valueOf(userAnimalUpperCase);
+            } catch (IllegalArgumentException e) {
+                System.out.printf("Тип животного %s не поддерживается программой!\n", userAnimal);
+            }
+        } while (typeAnimal == null);
+
+        AnimalTable table = new AnimalTable();
+        List<Animal> localAnimals = table.findByType(typeAnimal);
+        for (int i = 0; i < localAnimals.size(); i++) {
+            System.out.println(localAnimals.get(i));
+        }
+
     }
 }

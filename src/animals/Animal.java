@@ -55,7 +55,7 @@
 
      @Override
      public String toString() {
-         return String.format("Привет! Меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s", getName(), getAge(), getYearPadezh(), getWeight(), getColor().name());
+         return String.format("Привет! Я %s. Меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s", getType().name(), getName(), getAge(), getYearPadezh(), getWeight(), getColor().name());
      }
 
      private String getYearPadezh() {
