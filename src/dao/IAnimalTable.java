@@ -10,4 +10,5 @@ public interface IAnimalTable {
     List<Animal> findAll();
     List<Animal> findByType(AnimalTypeData searchType);
     void addAnimal(Animal newAnimal);
+    void updateById(String id, String newName);
 }

@@ -6,9 +6,9 @@ import data.ColorData;
 
 public class Cat extends Animal {
 
-    public Cat(String name, int age, int weight, ColorData color) {
+    public Cat(String name, int age, int weight, ColorData color, int id) {
 
-        super(name, age, weight, color, AnimalTypeData.CAT);
+        super(name, age, weight, color, AnimalTypeData.CAT, id);
     }
 
     @Override

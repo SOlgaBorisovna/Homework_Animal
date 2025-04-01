@@ -13,24 +13,26 @@ public class AnimalFactory {
     private int age;
     private int weight;
     private ColorData colorData;
+    private  int id;
 
-    public AnimalFactory(String name, int age, int weight, ColorData colorData) {
+    public AnimalFactory(String name, int age, int weight, ColorData colorData, int id) {
         this.name = name;
         this.age = age;
         this.weight = weight;
         this.colorData = colorData;
+        this.id = id;
     }
 
     public Animal create(AnimalTypeData animalTypeData) {
         switch (animalTypeData) {
         case CAT: {
-            return new Cat(name, age, weight, colorData);
+            return new Cat(name, age, weight, colorData, id);
         }
         case DOG: {
-            return new Dog(name, age, weight, colorData);
+            return new Dog(name, age, weight, colorData, id);
         }
         case DUCK: {
-            return new Duck(name, age, weight, colorData);
+            return new Duck(name, age, weight, colorData,id);
         }
         }
 

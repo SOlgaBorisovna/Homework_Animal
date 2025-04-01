@@ -30,14 +30,14 @@ public class AnimalTable extends AbsTable implements IAnimalTable{
         try {
             try (ResultSet rs = MySqlConnectionDb.getInstance().requestExecuteWithReturned("SELECT * FROM " + tableName)) {
                 while (rs.next()) {
-                    long id = rs.getLong("id");
+                    int id = rs.getInt("id");
                     String name = rs.getString("name");
                     int weight = rs.getInt("weight");
                     String color = rs.getString("color");
                     String type = rs.getString("type");
                     int age = rs.getInt("age");
 
-                    AnimalFactory animalFactory = new AnimalFactory(name, age, weight,  ColorData.valueOf(color.toUpperCase()));
+                    AnimalFactory animalFactory = new AnimalFactory(name, age, weight,  ColorData.valueOf(color.toUpperCase()), id);
                     Animal animal = animalFactory.create(AnimalTypeData.valueOf(type.toUpperCase()));
                     animals.add(animal);
                 }
@@ -54,14 +54,14 @@ public class AnimalTable extends AbsTable implements IAnimalTable{
         try {
             try (ResultSet rs = MySqlConnectionDb.getInstance().requestExecuteWithReturned(String.format("SELECT * FROM %s WHERE type = '%s' ", tableName, searchType.name()))) {
                 while (rs.next()) {
-                    long id = rs.getLong("id");
+                    int id = rs.getInt("id");
                     String name = rs.getString("name");
                     int weight = rs.getInt("weight");
                     String color = rs.getString("color");
                     String type = rs.getString("type");
                     int age = rs.getInt("age");
 
-                    AnimalFactory animalFactory = new AnimalFactory(name, age, weight,  ColorData.valueOf(color.toUpperCase()));
+                    AnimalFactory animalFactory = new AnimalFactory(name, age, weight,  ColorData.valueOf(color.toUpperCase()), id);
                     Animal animal = animalFactory.create(AnimalTypeData.valueOf(type.toUpperCase()));
                     animals.add(animal);
                 }
@@ -77,6 +77,16 @@ public class AnimalTable extends AbsTable implements IAnimalTable{
         try {
             MySqlConnectionDb.getInstance().requestExecute(
                     String.format("INSERT INTO %s (color, name, weight, type, age) VALUES ('%s', '%s', %d, '%s', %d)", tableName, newAnimal.getColor().name(), newAnimal.getName(), newAnimal.getWeight(), newAnimal.getType().name(), newAnimal.getAge()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateById(String id, String newNameAnimal) {
+        try {
+            MySqlConnectionDb.getInstance().requestExecute(
+                    String.format("UPDATE %s SET name = '%s' WHERE id = %s", tableName, newNameAnimal, id));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

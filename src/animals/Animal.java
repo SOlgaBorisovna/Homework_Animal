@@ -10,13 +10,15 @@
      private int weight;
      private ColorData color;
      private AnimalTypeData type;
+     private int id;
 
-     public Animal(String name, int age, int weight, ColorData color, AnimalTypeData type) {
+     public Animal(String name, int age, int weight, ColorData color, AnimalTypeData type, int id) {
          this.name = name;
          this.age = age;
          this.weight = weight;
          this.color = color;
          this.type = type;
+         this.id = id;
      }
 
      public String getName() {
@@ -33,6 +35,13 @@
 
      public ColorData getColor() {
          return color;
+     }
+     public AnimalTypeData getType() {
+         return type;
+     }
+
+     public int getId() {
+         return id;
      }
 
      public void say() {
@@ -51,11 +60,9 @@
          System.out.println("Я пью");
      }
 
-     public AnimalTypeData getType(){return type;}
-
      @Override
      public String toString() {
-         return String.format("Привет! Я %s. Меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s", getType().name(), getName(), getAge(), getYearPadezh(), getWeight(), getColor().name());
+         return String.format("Привет! Я %s. Мой ID - %s. Меня зовут %s, мне %d %s, я вешу - %s кг, мой цвет - %s", getType().name(), getId(), getName(), getAge(), getYearPadezh(), getWeight(), getColor().name());
      }
 
      private String getYearPadezh() {

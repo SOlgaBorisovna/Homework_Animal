@@ -50,6 +50,9 @@ public class Main {
             case SEARCH:
                 searchAnimals();
                 break;
+            case UPDATE:
+                updateAnimal();
+                break;
             case EXIT:
                 scan.close();
                 System.exit(0);
@@ -120,7 +123,7 @@ public class Main {
             }
         } while (color == null);
 
-        AnimalFactory animalFactory = new AnimalFactory(nameAnimal, Integer.parseInt(ageAnimal), Integer.parseInt(weightAnimal), color);
+        AnimalFactory animalFactory = new AnimalFactory(nameAnimal, Integer.parseInt(ageAnimal), Integer.parseInt(weightAnimal), color, 0);
         Animal animal = animalFactory.create(typeAnimal);
         AnimalTable table = new AnimalTable();
         table.addAnimal(animal);
@@ -160,6 +163,26 @@ public class Main {
         for (int i = 0; i < localAnimals.size(); i++) {
             System.out.println(localAnimals.get(i));
         }
+
+    }
+
+    public static void updateAnimal() {
+        listAnimals();
+
+        NumberTools validatorId = new NumberTools();
+        String idAnimal = null;
+        do {
+            System.out.println("Введите id животного:");
+            idAnimal = scan.nextLine();
+            if (!validatorId.isNumber(idAnimal))
+                System.out.println("Недопустимое значение для id!\n");
+        } while(!validatorId.isNumber(idAnimal));
+
+        System.out.println("Введите новое имя:");
+        String newNameAnimal = scan.nextLine();
+
+        AnimalTable table = new AnimalTable();
+        table.updateById(idAnimal, newNameAnimal);
 
     }
 }
