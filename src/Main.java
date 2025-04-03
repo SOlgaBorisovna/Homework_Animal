@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static List<Animal> animals = new ArrayList<>();
+    private static AnimalTable table = new AnimalTable();
 
     private static Scanner scan = new Scanner(System.in);
 
@@ -125,13 +125,11 @@ public class Main {
 
         AnimalFactory animalFactory = new AnimalFactory(nameAnimal, Integer.parseInt(ageAnimal), Integer.parseInt(weightAnimal), color, 0);
         Animal animal = animalFactory.create(typeAnimal);
-        AnimalTable table = new AnimalTable();
         table.addAnimal(animal);
         animal.say();
     }
 
     public static void listAnimals() {
-        AnimalTable table = new AnimalTable();
         List<Animal> localAnimals = table.findAll();
         for (int i = 0; i < localAnimals.size(); i++) {
             System.out.println(localAnimals.get(i));
@@ -158,7 +156,6 @@ public class Main {
             }
         } while (typeAnimal == null);
 
-        AnimalTable table = new AnimalTable();
         List<Animal> localAnimals = table.findByType(typeAnimal);
         for (int i = 0; i < localAnimals.size(); i++) {
             System.out.println(localAnimals.get(i));
@@ -172,16 +169,17 @@ public class Main {
         NumberTools validatorId = new NumberTools();
         String idAnimal = null;
         do {
-            System.out.println("Введите id животного:");
+            System.out.println("Введите id животного для редактирования:");
             idAnimal = scan.nextLine();
             if (!validatorId.isNumber(idAnimal))
-                System.out.println("Недопустимое значение для id!\n");
-        } while(!validatorId.isNumber(idAnimal));
+                System.out.println("Недопустимое значение для id!");
+            else if (table.findById(idAnimal) == null)
+                System.out.println("Животного с заданным id не существует!");
+        } while(!validatorId.isNumber(idAnimal) || table.findById(idAnimal) == null);
 
         System.out.println("Введите новое имя:");
         String newNameAnimal = scan.nextLine();
 
-        AnimalTable table = new AnimalTable();
         table.updateById(idAnimal, newNameAnimal);
 
     }

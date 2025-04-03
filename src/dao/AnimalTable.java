@@ -73,6 +73,31 @@ public class AnimalTable extends AbsTable implements IAnimalTable{
     }
 
     @Override
+    public Animal findById(String animalId) {
+        Animal animal = null;
+        try {
+            try (ResultSet rs = MySqlConnectionDb.getInstance().requestExecuteWithReturned(String.format("SELECT * FROM %s WHERE id = '%s' ", tableName, animalId))) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String name = rs.getString("name");
+                    int weight = rs.getInt("weight");
+                    String color = rs.getString("color");
+                    String type = rs.getString("type");
+                    int age = rs.getInt("age");
+
+                    AnimalFactory animalFactory = new AnimalFactory(name, age, weight,  ColorData.valueOf(color.toUpperCase()), id);
+                    animal = animalFactory.create(AnimalTypeData.valueOf(type.toUpperCase()));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return animal;
+    }
+
+
+
+    @Override
     public void addAnimal(Animal newAnimal) {
         try {
             MySqlConnectionDb.getInstance().requestExecute(
