@@ -108,10 +108,10 @@ public class AnimalTable extends AbsTable implements IAnimalTable{
     }
 
     @Override
-    public void updateById(String id, String newNameAnimal) {
+    public void updateById(String id, String newNameAnimal, String newAgeAnimal, String newWeightAnimal, ColorData newColor) {
         try {
             MySqlConnectionDb.getInstance().requestExecute(
-                    String.format("UPDATE %s SET name = '%s' WHERE id = %s", tableName, newNameAnimal, id));
+                    String.format("UPDATE %s SET name = '%s', weight = '%s', color = '%s', age = '%s' WHERE id = %s", tableName, newNameAnimal, newWeightAnimal, newColor.name(), newAgeAnimal, id));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

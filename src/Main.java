@@ -180,7 +180,44 @@ public class Main {
         System.out.println("Введите новое имя:");
         String newNameAnimal = scan.nextLine();
 
-        table.updateById(idAnimal, newNameAnimal);
+        NumberTools validatorAge = new NumberTools();
+        String newAgeAnimal = null;
+        do {
+            System.out.println("Введите новый возраст:");
+            newAgeAnimal = scan.nextLine();
+            if (!validatorAge.isNumber(newAgeAnimal))
+                System.out.println("Недопустимое значение для возраста!\n");
+        } while(!validatorAge.isNumber(newAgeAnimal));
 
+        NumberTools validatorWeight = new NumberTools();
+        String newWeightAnimal = null;
+        do {
+            System.out.println("Введите новый вес:");
+            newWeightAnimal = scan.nextLine();
+            if (!validatorWeight.isNumber(newWeightAnimal))
+                System.out.println("Недопустимое значение для веса!\n");
+        } while(!validatorWeight.isNumber(newWeightAnimal));
+
+        List<String> namesColor = new ArrayList<>();
+        for (ColorData color : ColorData.values()) {
+            namesColor.add(color.name());
+        }
+
+        ColorData newColor = null;
+        String userColor = null;
+        String userColorUpperCase = null;
+
+        do {
+            System.out.printf(String.format("Введите новый цвет: %S \n", String.join("/", namesColor)));
+            try {
+                userColor = scan.nextLine().trim();
+                userColorUpperCase = userColor.toUpperCase();
+                newColor = ColorData.valueOf(userColorUpperCase);
+            } catch (IllegalArgumentException e) {
+                System.out.printf("Цвет %s не поддерживается!\n", userColor);
+            }
+        } while (newColor == null);
+
+        table.updateById(idAnimal, newNameAnimal, newAgeAnimal, newWeightAnimal, newColor);
     }
 }
