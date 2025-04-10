@@ -13,7 +13,7 @@ public class FilePropertyReader implements IPropertyReader {
     public Map<String, String> getSettings() {
         Properties properties = new Properties();
         try {
-            properties.load(Files.newInputStream(Paths.get(System.getProperty("user.dir") + "/resources/db.properties")));
+            properties.load(Files.newInputStream(Paths.get(System.getProperty("user.dir") + "/src/main/resources/db.properties")));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
