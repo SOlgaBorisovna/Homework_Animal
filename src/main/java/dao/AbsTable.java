@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbsTable {
+public abstract class AbsTable {
 
     protected String tableName;
     protected Map<String, String> columns = new HashMap<>();
